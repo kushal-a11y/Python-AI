@@ -1,5 +1,5 @@
 class Calculator:
-    def init(self):
+    def __init__(self):
         self.operators = {
             "+": lambda a, b: a + b,
             "-": lambda a, b: a - b,
@@ -19,7 +19,7 @@ class Calculator:
         if not expression or expression.isspace():
             return None
         tokens = expression.strip().split()
-        return self._evaluate_infix(tokens)
+        return self.evaluateinfix(tokens)
 
 
     def evaluateinfix(self, tokens):
@@ -33,7 +33,7 @@ class Calculator:
                     and operators[-1] in self.operators
                     and self.precedence[operators[-1]] >= self.precedence[token]
                 ):
-                    self._apply_operator(operators, values)
+                    self.applyoperator(operators, values)
                 operators.append(token)
 
             else:
@@ -43,7 +43,7 @@ class Calculator:
                     raise ValueError(f"invalid token: {token}")
 
         while operators:
-            self._apply_operator(operators, values)
+            self.applyoperator(operators, values)
 
         if len(values) != 1:
             raise ValueError("invalid expression")
